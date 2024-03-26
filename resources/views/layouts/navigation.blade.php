@@ -23,6 +23,10 @@
                     <x-nav-link :href="route('tmas.index')" :active="request()->routeIs('tmas.index')">
                         {{ __('TMA') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('bc.index')" :active="request()->routeIs('bc.index')">
+                        {{ __('Beginners Class') }}
+                    </x-nav-link>
                 </div>
             </div>
 

@@ -20,7 +20,12 @@ class BeginnersClass extends Model
     ];
 
     protected $casts = [
-        'date_started',
-        'date_graduated',
+        'date_started' => 'date',
+        'date_graduated' => 'date',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
     ];
 }

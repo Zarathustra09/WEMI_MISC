@@ -13,7 +13,7 @@ class BeginnersClassController extends Controller
     public function index()
     {
         $beginners = BeginnersClass::all();
-        return view('beginners.index', compact('beginners'));
+        return view('bc.index', compact('beginners'));
     }
 
     /**
@@ -21,7 +21,7 @@ class BeginnersClassController extends Controller
      */
     public function create()
     {
-        //
+        return view('bc.create');
     }
 
     /**
@@ -29,7 +29,20 @@ class BeginnersClassController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the incoming request data
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'date_started' => 'required|date',
+            'date_graduated' => 'nullable|date',
+        ]);
+
+        // Create a new BeginnersClass instance and fill it with the validated data
+        BeginnersClass::create($request->all());
+
+        // Redirect back to the index page with a success message
+        return redirect()->route('bc.index')->with('success', 'Record created successfully.');
     }
 
     /**
@@ -43,17 +56,37 @@ class BeginnersClassController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        // Find the beginner class by its ID
+        $beginner = BeginnersClass::findOrFail($id);
+
+        // Pass the beginner class data to the view for editing
+        return view('bc.edit', compact('beginner'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // Validate the incoming request data
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'date_started' => 'required|date',
+            'date_graduated' => 'nullable|date',
+        ]);
+
+        // Find the beginner class by its ID
+        $beginner = BeginnersClass::findOrFail($id);
+
+        // Update the beginner class data with the validated data
+        $beginner->update($request->all());
+
+        // Redirect back to the index page with a success message
+        return redirect()->route('bc.index')->with('success', 'Record updated successfully.');
     }
 
     /**
@@ -61,6 +94,9 @@ class BeginnersClassController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $bc = BeginnersClass::findOrFail($id);
+        $bc->delete();
+
+        return redirect()->route('bc.index')->with('success', 'Record deleted successfully.');
     }
 }

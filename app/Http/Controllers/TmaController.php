@@ -39,15 +39,8 @@ class TmaController extends Controller
         ]);
 
         // Create a new TMA record with the validated data
-        TMA::create([
-            'first_name' => $request->input('first_name'),
-            'middle_name' => $request->input('middle_name'),
-            'last_name' => $request->input('last_name'),
-            'date_started' => $request->input('date_started'),
-            'date_graduated' => $request->input('date_graduated'),
-        ]);
+        TMA::create($request->all());
 
-        // Redirect back to the index page with a success message
         return redirect()->route('tmas.index')->with('success', 'Record created successfully.');
     }
 
@@ -86,14 +79,7 @@ class TmaController extends Controller
         ]);
 
         // Update the TMA record with the validated data
-        $tma->update([
-            'first_name' => $request->input('first_name'),
-            'middle_name' => $request->input('middle_name'),
-            'last_name' => $request->input('last_name'),
-            'date_started' => $request->input('date_started'),
-            'date_graduated' => $request->input('date_graduated'),
-        ]);
-
+        $tma->update($request->all());
         // Redirect back to the index page with a success message
         return redirect()->route('tmas.index')->with('success', 'Record updated successfully.');
     }

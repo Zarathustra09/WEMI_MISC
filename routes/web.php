@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BeginnersClassController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TMAController;
@@ -45,6 +46,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/tmas/{id}/edit', [TMAController::class, 'edit'])->name('tmas.edit');
     Route::put('/tmas/{id}', [TMAController::class, 'update'])->name('tmas.update');
     Route::delete('/tmas/{id}', [TMAController::class, 'destroy'])->name('tmas.destroy');
+
+    //BC
+    Route::get('/beginners', [BeginnersClassController::class, 'index'])->name('bc.index');
+    Route::get('/beginners/create', [BeginnersClassController::class, 'create'])->name('bc.create');
+    Route::post('/beginners', [BeginnersClassController::class, 'store'])->name('bc.store');
+    Route::get('/beginners/{id}/edit', [BeginnersClassController::class, 'edit'])->name('bc.edit');
+    Route::put('/beginners/{id}', [BeginnersClassController::class, 'update'])->name('bc.update');
+    Route::delete('/beginners/{id}', [BeginnersClassController::class, 'destroy'])->name('bc.destroy');
+
+
+
 
 
 
