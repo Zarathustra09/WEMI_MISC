@@ -1,7 +1,9 @@
+<!-- resources/views/tmas/index.blade.php -->
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Categories') }}
+            {{ __('TMA List') }}
         </h2>
     </x-slot>
 
@@ -14,6 +16,7 @@
 
 
     {{-- modal --}}
+
     <div id="deleteModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
         <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 
@@ -34,11 +37,11 @@
                         </div>
                         <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                Delete Category
+                                Delete Record
                             </h3>
                             <div class="mt-2">
                                 <p class="text-sm text-gray-500">
-                                    Are you sure you want to delete this category? This action cannot be undone.
+                                    Are you sure you want to delete this record? This action cannot be undone.
                                 </p>
                             </div>
                         </div>
@@ -60,11 +63,10 @@
         </div>
     </div>
 
-
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end mb-5">
-                <a href="{{ route('categories.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                <a href="{{ route('tmas.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
                     <i class="fas fa-plus-circle mr-2"></i> <!-- Font Awesome plus-circle icon -->
                     Add
                 </a>
@@ -74,25 +76,27 @@
                     <table class="min-w-full divide-y divide-gray-200" id="dataTable">
                         <thead>
                             <tr>
-                                {{-- <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">ID</th> --}}
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Created At</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Updated At</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">First Name</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Middle Name</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Last Name</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Date Started</th>
+                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Date Graduated</th>
                                 <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach ($categories as $category)
+                            @foreach ($tmas as $tma)
                             <tr>
-                                {{-- <td class="px-6 py-4 whitespace-no-wrap">{{ $category->id }}</td> --}}
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $category->name }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $category->created_at->format('M d, Y') }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $category->updated_at->format('M d, Y') }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap">{{ $tma->first_name }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap">{{ $tma->middle_name }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap">{{ $tma->last_name }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap">{{ $tma->date_started->format('M d, Y') }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap">{{ $tma->date_graduated ? $tma->date_graduated->format('M d, Y') : '-' }}</td>
                                 <td class="px-6 py-4 whitespace-no-wrap">
-                                    <a href="{{ route('categories.edit', $category->id) }}" class="text-blue-500 hover:text-blue-700">
+                                    <a href="{{route('tmas.edit', $tma->id)}}" class="text-blue-500 hover:text-blue-700">
                                         <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
                                     </a>
-                                    <button onclick="showDeleteModal('{{ $category->id }}')" class="text-red-500 hover:text-red-700">
+                                    <button onclick="showDeleteModal('{{ $tma->id }}')" class="text-red-500 hover:text-red-700">
                                         <i class="fas fa-trash-alt"></i> <!-- Font Awesome trash icon -->
                                     </button>
                                 </td>
@@ -100,13 +104,14 @@
                             @endforeach
                         </tbody>
                     </table>
+
+
                 </div>
             </div>
         </div>
     </div>
-
     <script>
-        $(document).ready(function() {
+         $(document).ready(function() {
             $('#dataTable').DataTable({
                 lengthChange: false,
                 info: true,
@@ -114,9 +119,8 @@
             });
         });
 
-        function showDeleteModal(categoryId) {
-        var deleteForm = document.getElementById('deleteForm');
-        deleteForm.action = "{{ url('categories') }}/" + categoryId;
+        function showDeleteModal(id) {
+        document.getElementById('deleteForm').action = '/tmas/' + id;
         document.getElementById('deleteModal').classList.remove('hidden');
     }
 

@@ -20,7 +20,7 @@
 
                     <div class="flex items-center justify-between">
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                            <i class="fas fa-save"></i> Save
+                            <i class="fas fa-save"></i> Update
                         </button>
                         <a href="{{ route('categories.index') }}" class="text-gray-600 hover:text-gray-900">
                             <i class="fas fa-times"></i> Cancel
