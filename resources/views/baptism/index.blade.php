@@ -1,9 +1,9 @@
-<!-- resources/views/tmas/index.blade.php -->
+<!-- resources/views/baptism/index.blade.php -->
 
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Beginners Class Record') }}
+            {{ __('Baptism Records') }}
         </h2>
     </x-slot>
 
@@ -66,7 +66,7 @@
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end mb-5">
-                <a href="{{ route('bc.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                <a href="{{ route('baptism.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
                     <i class="fas fa-plus-circle mr-2"></i> <!-- Font Awesome plus-circle icon -->
                     Add
                 </a>
@@ -74,58 +74,60 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6">
                     <table class="min-w-full divide-y divide-gray-200" id="dataTable">
-                        <thead>
+                        <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">First Name</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Middle Name</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Last Name</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Date Started</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Date Graduated</th>
-                                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                {{-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th> --}}
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">First Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Middle Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Baptised</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach ($beginners as $beginner)
-                            <tr>
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $beginner->first_name }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $beginner->middle_name }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $beginner->last_name }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $beginner->date_started->format('M d, Y') }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $beginner->date_graduated ? $beginner->date_graduated->format('M d, Y') : '-' }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap">
-                                    <a href="{{route('bc.edit', $beginner->id)}}" class="text-blue-500 hover:text-blue-700">
-                                        <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
-                                    </a>
-                                    <button onclick="showDeleteModal('{{ $beginner->id }}')" class="text-red-500 hover:text-red-700">
-                                        <i class="fas fa-trash-alt"></i> <!-- Font Awesome trash icon -->
-                                    </button>
-                                </td>
-                            </tr>
+                            @foreach($baptisms as $baptism)
+                                <tr>
+                                    {{-- <td class="px-6 py-4 whitespace-nowrap">{{ $baptism->id }}</td> --}}
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $baptism->first_name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $baptism->middle_name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $baptism->last_name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $baptism->date_baptised->format('M d, Y') }}</td>
+
+                                    <td class="px-6 py-4 whitespace-no-wrap">
+                                        <a href="{{route('baptism.edit', $baptism->id)}}" class="text-blue-500 hover:text-blue-700">
+                                            <i class="fas fa-edit"></i> <!-- Font Awesome edit icon -->
+                                        </a>
+                                        <button onclick="showDeleteModal('{{ $baptism->id }}')"  class="text-red-500 hover:text-red-700">
+                                            <i class="fas fa-trash-alt"></i> <!-- Font Awesome trash icon -->
+                                        </button>
+                                    </td>
+
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
-
-
                 </div>
             </div>
         </div>
     </div>
+
+
     <script>
-         $(document).ready(function() {
-            $('#dataTable').DataTable({
-                lengthChange: false,
-                info: true,
-                paging: true
-            });
-        });
+        $(document).ready(function() {
+           $('#dataTable').DataTable({
+               lengthChange: false,
+               info: true,
+               paging: true
+           });
+       });
 
-        function showDeleteModal(id) {
-        document.getElementById('deleteForm').action = '/beginners/' + id;
-        document.getElementById('deleteModal').classList.remove('hidden');
-        }
+       function showDeleteModal(id) {
+       document.getElementById('deleteForm').action = '/baptism/' + id;
+       document.getElementById('deleteModal').classList.remove('hidden');
+       }
 
-        function hideDeleteModal() {
-            document.getElementById('deleteModal').classList.add('hidden');
-        }
-    </script>
+       function hideDeleteModal() {
+           document.getElementById('deleteModal').classList.add('hidden');
+       }
+   </script>
 </x-app-layout>

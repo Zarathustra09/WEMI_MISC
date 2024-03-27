@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BeginnersClassController;
+use App\Http\Controllers\BaptismController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TMAController;
@@ -54,6 +55,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/beginners/{id}/edit', [BeginnersClassController::class, 'edit'])->name('bc.edit');
     Route::put('/beginners/{id}', [BeginnersClassController::class, 'update'])->name('bc.update');
     Route::delete('/beginners/{id}', [BeginnersClassController::class, 'destroy'])->name('bc.destroy');
+
+    //Baptism
+    Route::get('/baptism', [BaptismController::class, 'index'])->name('baptism.index');
+    Route::get('/baptism/create', [BaptismController::class, 'create'])->name('baptism.create');
+    Route::post('/baptism', [BaptismController::class, 'store'])->name('baptism.store');
+    Route::get('/baptism/{id}/edit', [BaptismController::class, 'edit'])->name('baptism.edit');
+    Route::put('/baptism{id}', [BaptismController::class, 'update'])->name('baptism.update');
+    Route::delete('/baptism/{id}', [BaptismController::class, 'destroy'])->name('baptism.destroy');
 
 
 
