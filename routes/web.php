@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BeginnersClassController;
 use App\Http\Controllers\BaptismController;
+use App\Http\Controllers\DedicationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TmaController;
@@ -67,11 +68,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/baptism/{id}/edit', [BaptismController::class, 'edit'])->name('baptism.edit');
     Route::put('/baptism{id}', [BaptismController::class, 'update'])->name('baptism.update');
     Route::delete('/baptism/{id}', [BaptismController::class, 'destroy'])->name('baptism.destroy');
+    Route::get('/baptism/{baptism}/print', [BaptismController::class, 'print'])->name('baptism.print');
 
 
-
-
-
+    Route::resource('dedications', DedicationController::class);
 
 });
 

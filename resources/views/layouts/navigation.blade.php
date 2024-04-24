@@ -31,6 +31,12 @@
                     <x-nav-link :href="route('baptism.index')" :active="request()->routeIs('baptism.index')">
                         {{ __('Baptism') }}
                     </x-nav-link>
+
+
+
+                    <x-nav-link :href="route('dedications.index')" :active="request()->routeIs('dedications.index')">
+                        {{ __('Dedication') }}
+                    </x-nav-link>
                 </div>
             </div>
 

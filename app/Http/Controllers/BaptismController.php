@@ -86,5 +86,29 @@ class BaptismController extends Controller
 
     }
 
+    public function print($id)
+    {
+        $baptism = Baptism::findOrFail($id);
+        $baptism->date_with_suffix = $this->date_with_suffix($baptism->date_baptised);
+        return view('pdf.baptism', compact('baptism'));
+    }
+
+    private function date_with_suffix($date)
+    {
+        $day = date('j', strtotime($date));
+        if ($day % 10 == 1 && $day != 11) {
+            $suffix = 'st';
+        } elseif ($day % 10 == 2 && $day != 12) {
+            $suffix = 'nd';
+        } elseif ($day % 10 == 3 && $day != 13) {
+            $suffix = 'rd';
+        } else {
+            $suffix = 'th';
+        }
+
+        return $day . $suffix . ' ' . date('F Y', strtotime($date));
+    }
+
+
 
 }
