@@ -101,7 +101,7 @@
                                         <i class="fas fa-trash-alt"></i> <!-- Font Awesome trash icon -->
                                     </button>
 
-                                    <a href=""  class="text-green-500 hover:text-green-700">
+                                    <a href="{{route('dedications.print',$dedication->id )}}"  class="text-green-500 hover:text-green-700">
                                         <i class="fas fa-print"></i> <!-- Font Awesome print icon -->
                                     </a>
                                 </td>

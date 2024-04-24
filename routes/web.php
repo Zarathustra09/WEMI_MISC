@@ -70,8 +70,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/baptism/{id}', [BaptismController::class, 'destroy'])->name('baptism.destroy');
     Route::get('/baptism/{baptism}/print', [BaptismController::class, 'print'])->name('baptism.print');
 
-
+    Route::get('/dedications/{id}/print', [DedicationController::class, 'print'])->name('dedications.print');
     Route::resource('dedications', DedicationController::class);
+
 
 });
 
