@@ -100,6 +100,8 @@
                                         <button onclick="showDeleteModal('{{ $baptism->id }}')"  class="text-red-500 hover:text-red-700">
                                             <i class="fas fa-trash-alt"></i> <!-- Font Awesome trash icon -->
                                         </button>
+
+
                                     </td>
 
                                 </tr>

@@ -29,7 +29,7 @@
                         <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
                             <!-- Heroicon name: exclamation -->
                             <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.797-1.258 2.797-2.797V10.797C21.797 9.258 20.54 8 19 8H5.062c-1.54 0-2.797 1.258-2.797 2.797v8.406c0 1.54 1.258 2.797 2.797 2.797z"/>
+                                <path stroke-linecap="round" stroke-lphpinejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.797-1.258 2.797-2.797V10.797C21.797 9.258 20.54 8 19 8H5.062c-1.54 0-2.797 1.258-2.797 2.797v8.406c0 1.54 1.258 2.797 2.797 2.797z"/>
                             </svg>
                         </div>
                         <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">

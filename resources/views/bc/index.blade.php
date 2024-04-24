@@ -99,6 +99,10 @@
                                     <button onclick="showDeleteModal('{{ $beginner->id }}')" class="text-red-500 hover:text-red-700">
                                         <i class="fas fa-trash-alt"></i> <!-- Font Awesome trash icon -->
                                     </button>
+
+                                    <a href="{{route('bc.print',$beginner->id)}}"  class="text-green-500 hover:text-green-700">
+                                        <i class="fas fa-print"></i> <!-- Font Awesome print icon -->
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach

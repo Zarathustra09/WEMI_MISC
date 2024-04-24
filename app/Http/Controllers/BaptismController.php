@@ -85,4 +85,6 @@ class BaptismController extends Controller
         return redirect()->route('baptism.index')->with('success', 'Record deleted successfully.');
 
     }
+
+
 }

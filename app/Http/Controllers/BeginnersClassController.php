@@ -99,4 +99,11 @@ class BeginnersClassController extends Controller
 
         return redirect()->route('bc.index')->with('success', 'Record deleted successfully.');
     }
+
+    public function print($id)
+    {
+        $beginner = BeginnersClass::findOrFail($id);
+        return view('pdf.bc', compact('beginner'));
+    }
+
 }
