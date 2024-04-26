@@ -17,4 +17,8 @@ class Dedication extends Model
         'date_dedicated',
         // Add other fillable fields here
     ];
+
+    protected $casts = [
+        'date_dedicated' => 'date',
+    ];
 }

@@ -91,7 +91,7 @@
                                 <td class="px-6 py-4 whitespace-no-wrap">{{ $dedication->last_name }}</td>
                                 <td class="px-6 py-4 whitespace-no-wrap">{{ $dedication->father_name }}</td>
                                 <td class="px-6 py-4 whitespace-no-wrap">{{ $dedication->mother_name }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $dedication->date_dedicated}}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap">{{ $dedication->date_dedicated->format('M d, Y')}}</td>
                                 <!-- Add more table cells for other fields as needed -->
                                 <td class="px-6 py-4 whitespace-no-wrap">
                                     <a href="{{ route('dedications.edit', $dedication->id) }}" class="text-blue-500 hover:text-blue-700">

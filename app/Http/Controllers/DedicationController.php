@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dedication;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DedicationController extends Controller
@@ -14,7 +15,6 @@ class DedicationController extends Controller
     {
         // Retrieve all dedications
         $dedications = Dedication::all();
-
         // Return view with dedications data
         return view('dedication.index', compact('dedications'));
     }
@@ -52,17 +52,21 @@ class DedicationController extends Controller
 
     public function edit(Dedication $dedication)
     {
-        // Return view for editing the specified dedication
+
         return view('dedication.edit', compact('dedication'));
     }
 
     public function update(Request $request, Dedication $dedication)
     {
         // Validate request data
-        $request->validate([
-            'name' => 'required|string',
-            'date' => 'required|date',
-            // Add validation rules for other fields as needed
+        $dedication->update([
+            'first_name' => $request->first_name,
+            'middle_name' => $request->middle_name,
+            'last_name' => $request->last_name,
+            'father_name' => $request->father_name,
+            'mother_name' => $request->mother_name,
+            'date_dedicated' => $request->date_dedicated,
+            // Update other fields as needed
         ]);
 
         // Update the dedication
@@ -83,10 +87,9 @@ class DedicationController extends Controller
 
     public function print($id)
     {
-        // Find the dedication by ID
         $dedication = Dedication::find($id);
-        $dedication->date_dedicated_formatted = date('F j, Y', strtotime($dedication->date_dedicated));
-        return view('pdf.dedication', compact('dedication'));
+        $dedication->date_dedicated_formatted = Carbon::parse($dedication->date_dedicated)->format('F j, Y');
+       return view('pdf.dedication', compact('dedication'));
     }
 
 }
