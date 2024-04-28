@@ -16,9 +16,9 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
-                        {{ __('Categories') }}
-                    </x-nav-link>
+{{--                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">--}}
+{{--                        {{ __('Categories') }}--}}
+{{--                    </x-nav-link>--}}
 
                     <x-nav-link :href="route('tmas.index')" :active="request()->routeIs('tmas.index')">
                         {{ __('TMA') }}
