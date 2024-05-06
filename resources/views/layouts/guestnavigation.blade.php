@@ -5,41 +5,21 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('guest.index') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
+                        <!-- Navigation Links -->
+                        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <x-nav-link :href="route('guest.index')" :active="request()->routeIs('guest.index')">
+                                {{ __('Dashboard') }}
+                            </x-nav-link>
 
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                        </div>
+              
 
-{{--                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">--}}
-{{--                        {{ __('Categories') }}--}}
-{{--                    </x-nav-link>--}}
-
-                    <x-nav-link :href="route('tmas.index')" :active="request()->routeIs('tmas.index')">
-                        {{ __('TMA') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('bc.index')" :active="request()->routeIs('bc.index')">
-                        {{ __('Beginners Class') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('baptism.index')" :active="request()->routeIs('baptism.index')">
-                        {{ __('Baptism') }}
-                    </x-nav-link>
-
-
-
-                    <x-nav-link :href="route('dedications.index')" :active="request()->routeIs('dedications.index')">
-                        {{ __('Dedication') }}
-                    </x-nav-link>
-                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -67,7 +47,7 @@
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                                             onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
@@ -115,7 +95,7 @@
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                                           onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>

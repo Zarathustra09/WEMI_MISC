@@ -21,7 +21,18 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+
+            <!-- Page Heading -->
+            @if(auth()->check())
+                @if(auth()->user()->role == 0)
+                    @include('layouts.guestnavigation')
+                @elseif(auth()->user()->role == 1)
+                    @include('layouts.navigation')
+                @elseif(auth()->user()->role == 2)
+                    @include('layouts.posnavigation')
+                @endif
+            @endif
+
 
             <!-- Page Heading -->
             @if (isset($header))

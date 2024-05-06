@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\BeginnersClassController;
 use App\Http\Controllers\BaptismController;
 use App\Http\Controllers\DedicationController;
+use App\Http\Controllers\GuestController;
+use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TmaController;
@@ -25,7 +28,8 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'role'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -70,10 +74,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/baptism/{id}', [BaptismController::class, 'destroy'])->name('baptism.destroy');
     Route::get('/baptism/{baptism}/print', [BaptismController::class, 'print'])->name('baptism.print');
 
+
+    //dedications
     Route::get('/dedications/{id}/print', [DedicationController::class, 'print'])->name('dedications.print');
     Route::resource('dedications', DedicationController::class);
 
 
+    Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
+
+    Route::get("/dashboard/guest", [GuestController::class, 'index'])->name('guest.index');
 });
 
 
