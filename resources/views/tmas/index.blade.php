@@ -87,9 +87,9 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($tmas as $tma)
                             <tr>
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $tma->first_name }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $tma->middle_name }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $tma->last_name }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap">{{ $tma->user->first_name }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap">{{ $tma->user->middle_name }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap">{{ $tma->user->last_name }}</td>
                                 <td class="px-6 py-4 whitespace-no-wrap">{{ $tma->date_started->format('M d, Y') }}</td>
                                 <td class="px-6 py-4 whitespace-no-wrap">{{ $tma->date_graduated ? $tma->date_graduated->format('M d, Y') : '-' }}</td>
                                 <td class="px-6 py-4 whitespace-no-wrap">

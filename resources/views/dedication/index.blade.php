@@ -86,9 +86,9 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($dedications as $dedication)
                             <tr>
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $dedication->first_name }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $dedication->middle_name }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap">{{ $dedication->last_name }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap">{{ $dedication->user->first_name }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap">{{ $dedication->user->middle_name }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap">{{ $dedication->user->last_name }}</td>
                                 <td class="px-6 py-4 whitespace-no-wrap">{{ $dedication->father_name }}</td>
                                 <td class="px-6 py-4 whitespace-no-wrap">{{ $dedication->mother_name }}</td>
                                 <td class="px-6 py-4 whitespace-no-wrap">{{ $dedication->date_dedicated->format('M d, Y')}}</td>

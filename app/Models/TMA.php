@@ -16,6 +16,7 @@ class TMA extends Model
         'last_name',
         'date_started',
         'date_graduated',
+        'user_id',
     ];
     protected $casts = [
         'date_started' => 'date',
@@ -26,4 +27,9 @@ class TMA extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

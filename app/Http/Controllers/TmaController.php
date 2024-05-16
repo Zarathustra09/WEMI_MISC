@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\TMA;
 
@@ -21,7 +22,8 @@ class TmaController extends Controller
      */
     public function create()
     {
-        return view('tmas.create');
+        $users = User::all();
+        return view('tmas.create', compact('users'));
     }
 
     /**
@@ -31,9 +33,7 @@ class TmaController extends Controller
     {
         // Validate the incoming request data
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id|unique:tmas,user_id',
             'date_started' => 'required|date',
             'date_graduated' => 'nullable|date',
         ]);
@@ -71,9 +71,6 @@ class TmaController extends Controller
 
         // Validate the incoming request data
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
             'date_started' => 'required|date',
             'date_graduated' => 'nullable|date',
         ]);

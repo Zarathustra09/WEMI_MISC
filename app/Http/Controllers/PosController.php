@@ -35,9 +35,8 @@ class PosController extends Controller
                 ]);
             }
         }
+        return redirect()->route('pos.index')->with('success', 'Record created successfully.');
 
-        // Return a success response
-        return route('pos.index');
     }
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dedication;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class DedicationController extends Controller
 {
@@ -13,29 +14,30 @@ class DedicationController extends Controller
      */
     public function index()
     {
-        // Retrieve all dedications
-        $dedications = Dedication::all();
+        // Retrieve all dedications with their associated users
+        $dedications = Dedication::with('user')->get();
+
         // Return view with dedications data
         return view('dedication.index', compact('dedications'));
     }
 
     public function create()
     {
+        $users = User::all();
         // Return view for creating a new dedication
-        return view('dedication.create');
+        return view('dedication.create', compact('users'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'first_name' => 'required|string',
-            'middle_name' => 'nullable|string',
-            'last_name' => 'required|string',
             'father_name' => 'required|string',
             'mother_name' => 'required|string',
             'date_dedicated' => 'required|date',
+            'user_id' => 'required|exists:users,id|unique:dedications,user_id',
             // Add validation rules for other fields as needed
         ]);
+
 
         // Create a new dedication
         Dedication::create($request->all());
@@ -60,9 +62,6 @@ class DedicationController extends Controller
     {
         // Validate request data
         $dedication->update([
-            'first_name' => $request->first_name,
-            'middle_name' => $request->middle_name,
-            'last_name' => $request->last_name,
             'father_name' => $request->father_name,
             'mother_name' => $request->mother_name,
             'date_dedicated' => $request->date_dedicated,
@@ -87,7 +86,7 @@ class DedicationController extends Controller
 
     public function print($id)
     {
-        $dedication = Dedication::find($id);
+        $dedication = Dedication::with('user')->find($id);
         $dedication->date_dedicated_formatted = Carbon::parse($dedication->date_dedicated)->format('F j, Y');
        return view('pdf.dedication', compact('dedication'));
     }

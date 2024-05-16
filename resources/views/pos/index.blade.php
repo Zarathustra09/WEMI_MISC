@@ -59,7 +59,7 @@
                 // Send the array to the controller using AJAX with the CSRF token
                 $.ajax({
                     type: 'POST',
-                    url: '/pos',
+                    url: '/pos/store',
                     data: {
                         checkedUsers: checkedUsers,
                         // Include the CSRF token in the request data

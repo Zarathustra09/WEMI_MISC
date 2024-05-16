@@ -4,16 +4,15 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
+use Auth;
 
 class RoleRedirect
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle($request, Closure $next, $guard = null)
     {
@@ -29,11 +28,14 @@ class RoleRedirect
                 case 0:
                     return redirect('/dashboard/guest');
                 default:
-                    return redirect('/welcome'); // Default home for unknown roles
+                    return view('/welcome'); // Default home for unknown roles
             }
         }
 
         // Continue with the request
-        return $next($request);
+        $response = $next($request);
+
+        // Add cache control headers
+        return $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
     }
 }

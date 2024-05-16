@@ -15,20 +15,9 @@
                     @method('PUT')
 
                     <div class="mb-4">
-                        <label for="first_name" class="block text-gray-700 text-sm font-bold mb-2">First Name</label>
-                        <input type="text" name="first_name" id="first_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $tma->first_name }}">
+                        <label for="" class="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
+                        <input type="text" name="" id="" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $tma->user->first_name . ' ' . $tma->user->last_name }}" readonly>
                     </div>
-
-                    <div class="mb-4">
-                        <label for="middle_name" class="block text-gray-700 text-sm font-bold mb-2">Middle Name</label>
-                        <input type="text" name="middle_name" id="middle_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $tma->middle_name }}">
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="last_name" class="block text-gray-700 text-sm font-bold mb-2">Last Name</label>
-                        <input type="text" name="last_name" id="last_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $tma->last_name }}">
-                    </div>
-
                     <div class="mb-4">
                         <label for="date_started" class="block text-gray-700 text-sm font-bold mb-2">Date Started</label>
                         <input type="date" name="date_started" id="date_started" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $tma->date_started->format('Y-m-d') }}">

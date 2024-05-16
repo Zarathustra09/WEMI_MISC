@@ -9,6 +9,7 @@ use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TmaController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
+
+Auth::routes();
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -81,7 +84,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
-    Route::post('/pos', [PosController::class, 'store'])->name('pos.store');
+    Route::post('/pos/store', [PosController::class, 'store'])->name('pos.store');
 
     Route::get("/dashboard/guest", [GuestController::class, 'index'])->name('guest.index');
 });

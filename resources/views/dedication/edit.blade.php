@@ -11,21 +11,12 @@
                 <form action="{{ route('dedications.update', $dedication->id) }}" method="POST">
                     @csrf
                     @method('PUT')
+                    <div class="container mx-auto mt-10">
 
-                    <div class="mb-4">
-                        <label for="first_name" class="block text-gray-700 text-sm font-bold mb-2">First Name</label>
-                        <input type="text" name="first_name" id="first_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $dedication->first_name }}">
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="middle_name" class="block text-gray-700 text-sm font-bold mb-2">Middle Name</label>
-                        <input type="text" name="middle_name" id="middle_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $dedication->middle_name }}">
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="last_name" class="block text-gray-700 text-sm font-bold mb-2">Last Name</label>
-                        <input type="text" name="last_name" id="last_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $dedication->last_name }}">
-                    </div>
+                        <div class="mb-4">
+                            <label for="father_name" class="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
+                            <input type="text" name="" id="" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $dedication->user->first_name . ' ' . $dedication->user->last_name }}" readonly>
+                        </div>
 
                     <div class="mb-4">
                         <label for="father_name" class="block text-gray-700 text-sm font-bold mb-2">Father Name</label>

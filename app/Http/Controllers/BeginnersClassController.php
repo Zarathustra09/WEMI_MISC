@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BeginnersClass;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BeginnersClassController extends Controller
@@ -21,7 +22,8 @@ class BeginnersClassController extends Controller
      */
     public function create()
     {
-        return view('bc.create');
+        $users = User::all();
+        return view('bc.create', compact('users'));
     }
 
     /**
@@ -31,9 +33,7 @@ class BeginnersClassController extends Controller
     {
         // Validate the incoming request data
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id|unique:beginners_class,user_id',
             'date_started' => 'required|date',
             'date_graduated' => 'nullable|date',
         ]);
@@ -72,9 +72,6 @@ class BeginnersClassController extends Controller
     {
         // Validate the incoming request data
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
             'date_started' => 'required|date',
             'date_graduated' => 'nullable|date',
         ]);

@@ -17,6 +17,7 @@ class BeginnersClass extends Model
         'last_name',
         'date_started',
         'date_graduated',
+        'user_id',
     ];
 
     protected $casts = [
@@ -28,4 +29,9 @@ class BeginnersClass extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

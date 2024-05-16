@@ -88,9 +88,9 @@
                             @foreach($baptisms as $baptism)
                                 <tr>
                                     {{-- <td class="px-6 py-4 whitespace-nowrap">{{ $baptism->id }}</td> --}}
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $baptism->first_name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $baptism->middle_name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $baptism->last_name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $baptism->user->first_name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $baptism->user->middle_name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $baptism->user->last_name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $baptism->date_baptised->format('M d, Y') }}</td>
 
                                     <td class="px-6 py-4 whitespace-no-wrap">

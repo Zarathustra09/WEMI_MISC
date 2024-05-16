@@ -16,9 +16,15 @@ class Baptism extends Model
         'middle_name',
         'last_name',
         'date_baptised',
+        'user_id',
     ];
 
     protected $casts = [
         'date_baptised' => 'date',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

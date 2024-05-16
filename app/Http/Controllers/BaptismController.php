@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Baptism;
 
@@ -12,7 +13,7 @@ class BaptismController extends Controller
      */
     public function index()
     {
-        $baptisms = Baptism::all();
+        $baptisms = Baptism::with('user')->get();
         return view('baptism.index', compact('baptisms'));
     }
 
@@ -21,7 +22,8 @@ class BaptismController extends Controller
      */
     public function create()
     {
-        return view('baptism.create');
+        $users = User::all();
+        return view('baptism.create', compact('users'));
     }
 
     /**
@@ -30,9 +32,7 @@ class BaptismController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id | unique:baptism,user_id',
             'date_baptised' => 'required|date',
         ]);
 
@@ -63,9 +63,6 @@ class BaptismController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
             'date_baptised' => 'required|date',
         ]);
 
