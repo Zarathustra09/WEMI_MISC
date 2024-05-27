@@ -44,7 +44,7 @@ class LoginController extends Controller
      *
      * @return string
      */
-    protected function redirectTo()
+    protected function riderectTo()
     {
         $user = Auth::user();
 

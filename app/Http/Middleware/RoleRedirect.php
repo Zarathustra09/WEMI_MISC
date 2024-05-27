@@ -24,7 +24,7 @@ class RoleRedirect
                 case 2:
                     return redirect('/pos');
                 case 1:
-                    return redirect('/dashboard');
+                    break;
                 case 0:
                     return redirect('/dashboard/guest');
                 default:

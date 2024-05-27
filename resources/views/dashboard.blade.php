@@ -6,80 +6,25 @@
     </x-slot>
 
 
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                    <canvas id="chart" class="w-full h-64"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 <script>
-        const options = {
-        chart: {
-            height: "100%",
-            maxWidth: "100%",
-            type: "area",
-            fontFamily: "Inter, sans-serif",
-            dropShadow: {
-            enabled: false,
-            },
-            toolbar: {
-            show: false,
-            },
-        },
-        tooltip: {
-            enabled: true,
-            x: {
-            show: false,
-            },
-        },
-        fill: {
-            type: "gradient",
-            gradient: {
-            opacityFrom: 0.55,
-            opacityTo: 0,
-            shade: "#1C64F2",
-            gradientToColors: ["#1C64F2"],
-            },
-        },
-        dataLabels: {
-            enabled: false,
-        },
-        stroke: {
-            width: 6,
-        },
-        grid: {
-            show: false,
-            strokeDashArray: 4,
-            padding: {
-            left: 2,
-            right: 2,
-            top: 0
-            },
-        },
-        series: [
-            {
-            name: "New users",
-            data: [6500, 6418, 6456, 6526, 6356, 6456],
-            color: "#1A56DB",
-            },
-        ],
-        xaxis: {
-            categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
-            labels: {
-            show: false,
-            },
-            axisBorder: {
-            show: false,
-            },
-            axisTicks: {
-            show: false,
-            },
-        },
-        yaxis: {
-            show: false,
-        },
+    var ctx = document.getElementById('chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {!! json_encode($labels) !!},
+            datasets: {!! json_encode($datasets) !!}
         }
-
-        if (document.getElementById("area-chart") && typeof ApexCharts !== 'undefined') {
-        const chart = new ApexCharts(document.getElementById("area-chart"), options);
-        chart.render();
-        }
+    });
 </script>
 </x-app-layout>

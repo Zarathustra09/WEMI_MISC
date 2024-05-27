@@ -68,6 +68,7 @@
                     success: function(response) {
                         // Handle success response if needed
                         console.log(response);
+                        toastr.success('Attendance saved successfully!', 'Success');
                     },
                     error: function(xhr, status, error) {
                         // Handle error response if needed
