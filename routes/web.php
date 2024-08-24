@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BeginnersClassController;
 use App\Http\Controllers\BaptismController;
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DedicationController;
 use App\Http\Controllers\GuestController;
@@ -87,6 +88,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/pos/store', [PosController::class, 'store'])->name('pos.store');
 
     Route::get("/dashboard/guest", [GuestController::class, 'index'])->name('guest.index');
+
+
+    //calendar
+
+    Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar.index');
+
 });
 
 

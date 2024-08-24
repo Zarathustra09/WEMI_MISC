@@ -66,9 +66,8 @@
                         _token: csrfToken
                     },
                     success: function(response) {
-                        // Handle success response if needed
-                        console.log(response);
-                        toastr.success('Attendance saved successfully!', 'Success');
+                        console.log(response.success); // This will log 'Record created successfully.'
+                        toastr.success(response.success, 'Success');
                     },
                     error: function(xhr, status, error) {
                         // Handle error response if needed

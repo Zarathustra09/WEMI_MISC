@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,9 @@ class DashboardController extends Controller
 
     public function index()
     {
+
+        $attendance = $this->getAttendance()->getData();
+
         $users = User::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
             ->whereYear('created_at', date('Y'))
             ->groupByRaw('MONTH(created_at)')
@@ -49,7 +53,25 @@ class DashboardController extends Controller
             ]
         ];
 
-        return view('dashboard', compact('labels', 'datasets'));
+        return view('dashboard', compact('labels', 'datasets', 'attendance'));
+    }
+
+    public function getAttendance()
+    {
+        // Get all attendance records grouped by date
+        $attendanceRecords = Attendance::selectRaw('CAST(date_attended AS DATE) as date, count(*) as count')
+            ->groupBy('date_attended')
+            ->get();
+
+        // Map the attendance records to the format required by FullCalendar.js
+        $events = $attendanceRecords->map(function ($record) {
+            return [
+                'start' => $record->date,
+                'title' => 'Attendance: ' . $record->count,
+            ];
+        });
+
+        return response()->json($events);
     }
 
 }
