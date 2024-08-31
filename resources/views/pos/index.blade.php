@@ -40,10 +40,30 @@
 
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable({
+            var table = $('#dataTable').DataTable({
                 lengthChange: false,
                 info: true,
-                paging: true
+                paging: true,
+                ajax: {
+                    url: '/pos/getData',
+                    dataSrc: 'data'
+                },
+                columns: [
+                    {
+                        data: 'first_name',
+                        render: function(data, type, row) {
+                            return row.first_name + ' ' + row.last_name;
+                        },
+                        className: 'text-center' // Add class for text centering
+                    },
+                    {
+                        data: 'id',
+                        render: function(data, type, row) {
+                            return '<input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" data-user-id="' + data + '">';
+                        },
+                        className: 'text-center' // Add class for text centering
+                    }
+                ]
             });
 
             $('#saveAttendance').on('click', function(e) {
@@ -53,30 +73,33 @@
                     checkedUsers.push($(this).data('user-id'));
                 });
 
-                // Get the CSRF token from the meta tag
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-                // Send the array to the controller using AJAX with the CSRF token
                 $.ajax({
                     type: 'POST',
                     url: '/pos/store',
                     data: {
                         checkedUsers: checkedUsers,
-                        // Include the CSRF token in the request data
                         _token: csrfToken
                     },
                     success: function(response) {
-                        console.log(response.success); // This will log 'Record created successfully.'
-                        toastr.success(response.success, 'Success');
+                        if (response.info) {
+                            toastr.info(response.info, 'Info');
+                        } else if (response.success) {
+                            toastr.success(response.success, 'Success');
+                        }
+
+                        // Clear checkboxes
+                        $('input[type="checkbox"]:checked').prop('checked', false);
+
+                        // Reload DataTable
+                        table.ajax.reload();
                     },
                     error: function(xhr, status, error) {
-                        // Handle error response if needed
                         console.error(xhr.responseText);
                     }
                 });
             });
         });
-
-
     </script>
 </x-app-layout>

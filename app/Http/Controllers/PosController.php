@@ -8,35 +8,43 @@ use App\Models\Attendance;
 
 class PosController extends Controller
 {
+    public function store(Request $request)
+    {
+        $checkedUsers = $request->input('checkedUsers');
+        $existingRecordsFound = false;
+
+        foreach ($checkedUsers as $userId) {
+            $existingAttendance = Attendance::where('user_id', $userId)
+                ->whereDate('date_attended', now()->toDateString())
+                ->first();
+
+            if ($existingAttendance) {
+                $existingRecordsFound = true;
+            } else {
+                Attendance::create([
+                    'date_attended' => now(),
+                    'user_id' => $userId,
+                ]);
+            }
+        }
+
+        if ($existingRecordsFound) {
+            return response()->json(['info' => 'Some records already existed.']);
+        }
+
+        return response()->json(['success' => 'Record created successfully.']);
+    }
+
     public function index()
     {
         $users = User::all();
         return view('pos.index', compact('users'));
     }
 
-    public function store(Request $request)
+    public function getData()
     {
-        // Get the array of checked user IDs from the request
-        $checkedUsers = $request->input('checkedUsers');
-
-        // Loop through each checked user ID and validate before saving
-        foreach ($checkedUsers as $userId) {
-            // Check if an attendance record already exists for the user and today's date
-            $existingAttendance = Attendance::where('user_id', $userId)
-                ->whereDate('date_attended', now()->toDateString())
-                ->first();
-
-            // If no existing attendance record found, create a new one
-            if (!$existingAttendance) {
-                // Create a new attendance record for the user
-                Attendance::create([
-                    'date_attended' => now(), // Use the current date
-                    'user_id' => $userId,
-                ]);
-            }
-        }
-        return redirect()->route('pos.index')->with('success', 'Record created successfully.');
-
+        $users = User::all();
+        return response()->json(['data' => $users]);
     }
 
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TmaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -86,6 +87,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
     Route::post('/pos/store', [PosController::class, 'store'])->name('pos.store');
+    Route::get('/pos/getData', [PosController::class, 'getData'])->name('pos.getData');
 
     Route::get("/dashboard/guest", [GuestController::class, 'index'])->name('guest.index');
 
@@ -93,6 +95,10 @@ Route::middleware('auth')->group(function () {
     //calendar
 
     Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar.index');
+    Route::get('/calendar/print', [CalendarController::class, 'print'])->name('calendar.print');
+
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::post('/report/attendance', [ReportController::class, 'generateAttendanceReport'])->name('report.attendance');
 
 });
 

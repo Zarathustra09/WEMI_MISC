@@ -15,22 +15,23 @@
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end mb-5">
-
+                <a href="{{ route('calendar.print', ['date' => $date]) }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                    <i class="fas fa-print mr-2"></i>
+                    Print
+                </a>
             </div>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6">
                     <table class="min-w-full divide-y divide-gray-200" id="dataTable">
                         <thead>
                         <tr>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th class="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider text-center">Full Name</th>
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                         @foreach($attendances as $attendance)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ $attendance->user->first_name }} {{ $attendance->user->last_name }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ $attendance->user->email }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">{{ $attendance->user->first_name }} {{ $attendance->user->last_name }}</td>
                             </tr>
                         @endforeach
                         </tbody>
