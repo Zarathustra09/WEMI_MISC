@@ -40,6 +40,8 @@
 
     <script>
         $(document).ready(function() {
+            var selectedItems = [];
+
             var table = $('#dataTable').DataTable({
                 lengthChange: false,
                 info: true,
@@ -66,12 +68,20 @@
                 ]
             });
 
+            $('#dataTable tbody').on('click', 'input[type="checkbox"]', function() {
+                var userId = $(this).data('user-id');
+                if ($(this).is(':checked')) {
+                    selectedItems.push(userId);
+                } else {
+                    selectedItems = selectedItems.filter(function(id) {
+                        return id !== userId;
+                    });
+                }
+                console.log('Selected Items:', selectedItems);
+            });
+
             $('#saveAttendance').on('click', function(e) {
                 e.preventDefault();
-                var checkedUsers = [];
-                $('input[type="checkbox"]:checked').each(function() {
-                    checkedUsers.push($(this).data('user-id'));
-                });
 
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
@@ -79,7 +89,7 @@
                     type: 'POST',
                     url: '/pos/store',
                     data: {
-                        checkedUsers: checkedUsers,
+                        checkedUsers: selectedItems,
                         _token: csrfToken
                     },
                     success: function(response) {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
+use Illuminate\Support\Facades\Log;
 
 class PosController extends Controller
 {
@@ -12,6 +13,8 @@ class PosController extends Controller
     {
         $checkedUsers = $request->input('checkedUsers');
         $existingRecordsFound = false;
+
+       Log::info($checkedUsers);
 
         foreach ($checkedUsers as $userId) {
             $existingAttendance = Attendance::where('user_id', $userId)
