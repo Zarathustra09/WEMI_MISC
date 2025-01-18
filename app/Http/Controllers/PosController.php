@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class PosController extends Controller
@@ -48,6 +49,26 @@ class PosController extends Controller
     {
         $users = User::all();
         return response()->json(['data' => $users]);
+    }
+
+    public function createUserWithRoleZero(Request $request)
+    {
+        $validatedData = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'last_name' => 'required|string|max:255',
+        ]);
+
+        $user = User::create([
+            'first_name' => $validatedData['first_name'],
+            'middle_name' => $validatedData['middle_name'],
+            'last_name' => $validatedData['last_name'],
+            'email' => null,
+            'password' => null,
+            'role' => 0,
+        ]);
+
+        return response()->json(['success' => 'User created successfully.', 'user' => $user]);
     }
 
 

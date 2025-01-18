@@ -88,7 +88,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
     Route::post('/pos/store', [PosController::class, 'store'])->name('pos.store');
     Route::get('/pos/getData', [PosController::class, 'getData'])->name('pos.getData');
-
+    Route::post('/pos/create-user', [PosController::class, 'createUserWithRoleZero'])->name('pos.userCreate');
     Route::get("/dashboard/guest", [GuestController::class, 'index'])->name('guest.index');
 
 

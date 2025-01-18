@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             'last_name' => 'Theal',
             'email' => 'zaratheal@gmail.com',
             'role' => 2,
-            'password' => Hash::make('Wemi@123'),
+            'password' => Hash::make('Wemi@12345'),
         ]);
     }
 }
