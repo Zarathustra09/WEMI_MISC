@@ -143,8 +143,8 @@
                         popup: 'rounded-xl shadow-xl',
                         header: 'border-b pb-4',
                         title: 'text-xl font-semibold text-gray-800',
-                        confirmButton: 'bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-150 ease-in-out mr-2',
-                        cancelButton: 'bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-lg transition duration-150 ease-in-out'
+                        confirmButton: 'bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md',
+                        cancelButton: 'bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md ml-2'
                     },
                     buttonsStyling: false,
                     preConfirm: () => {
