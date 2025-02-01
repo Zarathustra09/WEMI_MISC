@@ -39,10 +39,26 @@ class PosController extends Controller
             }
         }
 
-        return response()->json([
-            'existingRecordsCount' => $existingRecordsCount,
-            'newRecordsCount' => $newRecordsCount,
-        ]);
+        if ($existingRecordsCount > 0 && $newRecordsCount > 0) {
+            return response()->json([
+                'status' => 'partial_success',
+                'existingRecordsCount' => $existingRecordsCount,
+                'newRecordsCount' => $newRecordsCount,
+            ]);
+        } elseif ($existingRecordsCount > 0 && $newRecordsCount == 0) {
+            return response()->json([
+                'status' => 'all_duplicates',
+                'existingRecordsCount' => $existingRecordsCount,
+            ]);
+        } elseif ($existingRecordsCount == 0 && $newRecordsCount > 0) {
+            return response()->json([
+                'status' => 'success',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'no_records',
+            ]);
+        }
     }
 
     public function index()

@@ -103,13 +103,15 @@
                         _token: csrfToken
                     },
                     success: function(response) {
-                        if (response.existingRecordsCount > 0) {
+                        if (response.status === 'success') {
+                            toastr.success('All records were marked as present successfully.');
+                        } else if (response.status === 'partial_success') {
                             Swal.fire({
                                 icon: 'info',
                                 title: 'Attendance Summary',
                                 html: `
-                        <p>Existing Records: ${response.existingRecordsCount}</p>
-                        <p>New Records: ${response.newRecordsCount}</p>
+                        <p>Attendees Today: ${response.existingRecordsCount}</p>
+                        <p>New Attendees: ${response.newRecordsCount}</p>
                     `,
                                 customClass: {
                                     popup: 'rounded-xl',
@@ -118,9 +120,33 @@
                                 },
                                 buttonsStyling: false
                             });
-                        } else {
-                            toastr.success('All records were created successfully.');
+                        } else if (response.status === 'all_duplicates') {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Duplicate Records',
+                                text: 'All the selected records are duplicates.',
+                                customClass: {
+                                    popup: 'rounded-xl',
+                                    title: 'text-xl font-semibold text-gray-800',
+                                    confirmButton: 'bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-150 ease-in-out'
+                                },
+                                buttonsStyling: false
+                            });
+                        } else if (response.status === 'no_records') {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'No Records',
+                                text: 'No records were found or created.',
+                                customClass: {
+                                    popup: 'rounded-xl',
+                                    title: 'text-xl font-semibold text-gray-800',
+                                    confirmButton: 'bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-150 ease-in-out'
+                                },
+                                buttonsStyling: false
+                            });
                         }
+                        // Reset selected items and uncheck all checkboxes
+                        selectedItems = [];
                         $('input[type="checkbox"]:checked').prop('checked', false);
                         table.ajax.reload();
                     },
