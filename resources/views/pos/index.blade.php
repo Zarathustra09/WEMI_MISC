@@ -103,10 +103,23 @@
                         _token: csrfToken
                     },
                     success: function(response) {
-                        if (response.info) {
-                            toastr.info(response.info, 'Info');
-                        } else if (response.success) {
-                            toastr.success(response.success, 'Success');
+                        if (response.existingRecordsCount > 0) {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Attendance Summary',
+                                html: `
+                        <p>Existing Records: ${response.existingRecordsCount}</p>
+                        <p>New Records: ${response.newRecordsCount}</p>
+                    `,
+                                customClass: {
+                                    popup: 'rounded-xl',
+                                    title: 'text-xl font-semibold text-gray-800',
+                                    confirmButton: 'bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-150 ease-in-out'
+                                },
+                                buttonsStyling: false
+                            });
+                        } else {
+                            toastr.success('All records were created successfully.');
                         }
                         $('input[type="checkbox"]:checked').prop('checked', false);
                         table.ajax.reload();

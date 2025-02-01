@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
 use Illuminate\Support\Facades\Hash;
@@ -13,30 +14,35 @@ class PosController extends Controller
     public function store(Request $request)
     {
         $checkedUsers = $request->input('checkedUsers');
-        $existingRecordsFound = false;
+        $existingRecordsCount = 0;
+        $newRecordsCount = 0;
+        $duplicateUsers = [];
 
-       Log::info($checkedUsers);
+        Log::info($checkedUsers);
 
         foreach ($checkedUsers as $userId) {
             $existingAttendance = Attendance::where('user_id', $userId)
-                ->whereDate('date_attended', now()->toDateString())
+                ->whereDate('date_attended', Carbon::now('Asia/Manila')->toDateString())
                 ->first();
 
             if ($existingAttendance) {
-                $existingRecordsFound = true;
+                if (!in_array($userId, $duplicateUsers)) {
+                    $duplicateUsers[] = $userId;
+                    $existingRecordsCount++;
+                }
             } else {
                 Attendance::create([
-                    'date_attended' => now(),
+                    'date_attended' => Carbon::now('Asia/Manila'),
                     'user_id' => $userId,
                 ]);
+                $newRecordsCount++;
             }
         }
 
-        if ($existingRecordsFound) {
-            return response()->json(['info' => 'Some records already existed.']);
-        }
-
-        return response()->json(['success' => 'Record created successfully.']);
+        return response()->json([
+            'existingRecordsCount' => $existingRecordsCount,
+            'newRecordsCount' => $newRecordsCount,
+        ]);
     }
 
     public function index()
